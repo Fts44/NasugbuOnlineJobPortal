@@ -1,25 +1,40 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailerController as Mailer;
+use App\Http\Controllers\OTPController as OTP;
 
+use App\Http\Controllers\Authentication\RegisterController as Register;
+use App\Http\Controllers\Authentication\RecoverController as Recover;
+use App\Http\Controllers\Authentication\LoginController as Login;
 
-Route::get('/', function () {
-    return view('authentication.login');
+// start authentication route
+Route::prefix('/')->group(function(){
+    Route::get('login', [Login::class, 'index'])->name('LoginView');
+    Route::post('login', [Login::class, 'login'])->name('Login');
+
+    Route::get('recover', [Recover::class, 'index'])->name('RecoverView');
+    Route::post('recover', [Recover::class, 'recover'])->name('Recover');
+    Route::post('recover/otp', [OTP::class, 'compose_mail'])->name('RecoverSendOTP');
+
+    Route::get('register', [Register::class, 'index'])->name('RegisterView');
+    Route::post('register', [Register::class, 'register'])->name('Register');
+    Route::post('register/otp', [OTP::class, 'compose_mail'])->name('RegisterSendOTP');
 });
+// end authentication route
 
+// start main 
+Route::prefix('/main')->group(function(){
+    // start applicant 
+    Route::prefix('/applicant')->group(function(){
 
-Route::prefix('authentication')->group(function(){
-    Route::get('/', function(){
-        return view('authentication.login');
-    })->name('login');
-    Route::get('/forgot-password', function(){
-        return view('authentication.forgotpassword');
-    })->name('forgot-password');
-    Route::get('/register', function(){
-        return view('authentication.register');
-    })->name('register');
+    });
+    // end applicant
+
+    // start employer
+    Route::prefix('/employer')->group(function(){
+
+    });
+    // end employer
 });
-
-Route::get('/testmain', function(){
-    return view('layout.main');
-});
+// end main 

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Session;
 
 class RecoverController extends Controller
 {
@@ -59,13 +60,13 @@ class RecoverController extends Controller
                         'acc_password' => Hash::make($request->pass)
                     ]);
 
+                Session::flush();
                 $response = [
                     'title' => 'Success!',
                     'message' => 'Account recovered.',
                     'icon' => 'success',
                     'status' => 200
                 ];
-
                 $response = json_encode($response, true);
                 return redirect()->back()->with('status',$response);
             }

@@ -8,6 +8,8 @@ use App\Http\Controllers\Authentication\RegisterController as Register;
 use App\Http\Controllers\Authentication\RecoverController as Recover;
 use App\Http\Controllers\Authentication\LoginController as Login;
 
+use App\Http\Controllers\Employer\Profile as ProfileEmployer;
+
 // start authentication route
 Route::prefix('/')->group(function(){
     Route::get('login', [Login::class, 'index'])->name('LoginView');
@@ -33,7 +35,7 @@ Route::prefix('/main')->group(function(){
 
     // start employer
     Route::prefix('/employer')->group(function(){
-
+        Route::get('/', [ProfileEmployer::class, 'index'])->name('ProfileEmployerView');
     });
     // end employer
 });

@@ -44,8 +44,15 @@ class LoginController extends Controller
                     $request->session()->put('user_email', $user->acc_email);
                     $request->session()->put('user_type', $user->acc_classification);
                     $response = [
-                        'status' => 200
+                        'status' => 200,
                     ];
+
+                    if($user->acc_classification == 'employer'){
+                        $response['redirect_to'] = route('ProfileEmployerView');
+                    }
+                    else{
+                        $response['redirect_to'] = "route('ProfileEmployerView')";
+                    }
                 }
                 else{        
                     $response = [

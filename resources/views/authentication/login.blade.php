@@ -83,7 +83,7 @@
                             });
                         }
                         else{
-                            console.log('test');
+                            window.location.href = response.redirect_to;
                         }
                     },
                     error: function(response){

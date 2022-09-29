@@ -62,7 +62,7 @@ class OTPController extends Controller
                     $send_request = new Request([
                         'email_to' => $request->email,
                         'body' => $message,
-                        'subject'  => 'no reply'
+                        'subject'  => 'One Time Pin - Nasugbu Online Job Finder'
                     ]);
 
                     if($mailer->send($send_request)){
@@ -115,7 +115,7 @@ class OTPController extends Controller
                 $send_request = new Request([
                     'email_to' => $request->email,
                     'body' => $message,
-                    'subject'  => 'no reply'
+                    'subject'  => 'One Time Pin - Nasugbu Online Job Finder'
                 ]);
 
                 if($mailer->send($send_request)){

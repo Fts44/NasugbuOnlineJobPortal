@@ -24,7 +24,7 @@ class MailerController extends Controller
             $mail->SMTPSecure = 'tls';                  // encryption - ssl/tls
             $mail->Port = 587;                          // port - 587/465
 
-            $mail->setFrom('ojofi.nasugbu@gmail.com', 'Nasugbu - OJoFi');
+            $mail->setFrom('ojofi.nasugbu@gmail.com', 'noreply');
             $mail->addAddress($request->email_to);
             
             if(isset($request->emailCc)){

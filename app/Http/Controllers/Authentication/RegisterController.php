@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -62,6 +63,7 @@ class RegisterController extends Controller
                     'acc_password' => Hash::make($request->pass)
                 ]);
 
+                Session::flush();
                 $response = [
                     'title' => 'Success!',
                     'message' => 'Account created.',

@@ -19,3 +19,7 @@ Route::prefix('authentication')->group(function(){
         return view('authentication.register');
     })->name('register');
 });
+
+Route::get('/testmain', function(){
+    return view('layout.main');
+});

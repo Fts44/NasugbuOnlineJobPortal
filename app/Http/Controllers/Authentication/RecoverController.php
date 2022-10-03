@@ -57,7 +57,10 @@ class RecoverController extends Controller
                 DB::table('accounts')
                     ->where('acc_email', $request->email)
                     ->update([
-                        'acc_password' => Hash::make($request->pass)
+                        'acc_password' => Hash::make($request->pass),
+                        'acc_login_attempts' => '3',
+                        'acc_login_attempts_date' => null,
+                        'acc_blocked_status' => '0'
                     ]);
 
                 Session::flush();

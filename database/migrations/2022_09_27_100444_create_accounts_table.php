@@ -27,6 +27,10 @@ class CreateAccountsTable extends Migration
             $table->boolean('acc_verified_status');
             $table->string('acc_company_name')->nullable();
             $table->string('acc_password');
+            $table->integer('acc_login_attempts')->nullable();
+            $table->date('acc_login_attempts_date')->nullable();
+            $table->boolean('acc_blocked_status')->default('0');
+            $table->boolean('acc_banned_status')->default('0');
         });
     }
 

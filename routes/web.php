@@ -10,10 +10,13 @@ use App\Http\Controllers\Authentication\LoginController as Login;
 
 use App\Http\Controllers\Employer\Profile as ProfileEmployer;
 
+use App\Http\Controllers\Admin\AccountsController as AccountsAdmin;
+
 // start authentication route
 Route::prefix('/')->group(function(){
-    Route::get('login', [Login::class, 'index'])->name('LoginView');
+    Route::get('', [Login::class, 'index'])->name('LoginView');
     Route::post('login', [Login::class, 'login'])->name('Login');
+    Route::post('logout', [Login::class, 'logout'])->name('Logout');
 
     Route::get('recover', [Recover::class, 'index'])->name('RecoverView');
     Route::post('recover', [Recover::class, 'recover'])->name('Recover');
@@ -38,5 +41,11 @@ Route::prefix('/main')->group(function(){
         Route::get('/', [ProfileEmployer::class, 'index'])->name('ProfileEmployerView');
     });
     // end employer
+
+    // start admin
+    Route::prefix('/admin')->group(function(){
+        Route::get('/', [AccountsAdmin::class, 'index'])->name('ProfileAdminAccounts');
+    });
+    // end admin
 });
 // end main 

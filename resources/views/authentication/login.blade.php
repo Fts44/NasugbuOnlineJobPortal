@@ -46,7 +46,10 @@
                     <div id="g-recaptcha" class="g-recaptcha" data-callback="recaptchaCallback" data-expired-callback="recaptchaExpired" data-sitekey="6LcasJsgAAAAADf5Toas_DlBccLh5wyGIzmDmjQi"></div>
                 </div> -->
                 
-                <button id="btnProceed" class="submit btn btn-secondary my-4">Login</button>
+                <button id="btn_proceed" class="submit btn btn-secondary my-4">
+                <div class="spinner-border spinner-border-sm text-light d-none" role="status" id="lbl_loading_proceed"></div>
+                    <span id="lbl_proceed">Login</span>   
+                </button>
             </form>
 
             <p> Don't have an account? Sign Up <a href="{{ route('RegisterView') }}">here</a> <p>
@@ -63,7 +66,11 @@
         $(document).ready(function(){
             $('#login_form').submit(function(e){
                 e.preventDefault();
-                    
+                
+                $('.error-message').html('');
+                $('#lbl_loading_proceed').removeClass('d-none');
+                $('#lbl_proceed').addClass('d-none'); 
+                
                 $.ajax({
                     type: "POST",
                     url: "{{ route('Login') }}",
@@ -77,9 +84,23 @@
                         $('.error-message').html('');
                         response = JSON.parse(response);
                         console.log(response);
+                        $('#lbl_loading_proceed').addClass('d-none');
+                        $('#lbl_proceed').removeClass('d-none'); 
+
                         if(response.status == 400){
                             $.each(response.errors, function(key, err_values){
                                 $('#'+key+'_error').html(err_values);
+                            });
+                            // show alert message
+
+                            const modal_body = document.createElement('div');
+                            modal_body.innerHTML = response.response['message'];
+                            modal_body.setAttribute('class', 'swal-body');
+
+                            swal({
+                                title: response.response['title'],
+                                content: modal_body, 
+                                icon: response.response['icon']
                             });
                         }
                         else{

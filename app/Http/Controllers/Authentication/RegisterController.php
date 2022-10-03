@@ -59,7 +59,7 @@ class RegisterController extends Controller
                 DB::table('accounts')->insert([
                     'acc_email' => $request->email,
                     'acc_classification' => $request->user_type,
-                    'acc_verified_status' => '1',
+                    'acc_verified_status' => '0',
                     'acc_password' => Hash::make($request->pass)
                 ]);
 

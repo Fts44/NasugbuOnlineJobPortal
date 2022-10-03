@@ -2,9 +2,12 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+  :root {
     scroll-behavior: smooth;
   }
+
+  
   /* ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 8px;
@@ -15,12 +18,16 @@
     box-shadow: 0 0 1px rgba(255, 255, 255, .5);
   } */
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none; 
-}
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none; 
+  }
+
+  *{
+    font-family: 'Tahoma', sans-serif;
+  }
   
   body {
     background: #f6f9ff;
@@ -53,13 +60,12 @@ input[type=number]::-webkit-outer-spin-button {
   }
   
   h1, h2, h3, h4, h5, h6 {
-   font-family: "Tahoma", sans-serif;
+   font-family: "Nunito", sans-serif;
   }
   /*--------------------------------------------------------------
   # Main
   --------------------------------------------------------------*/
   #main {
-    font-family:'Tahoma', sans-serif;
     font-size: 15px;
     margin-top: 55px;
     padding: 20px 14px;
@@ -247,7 +253,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
   
   .card-title {
-    font-family: "Nunito", sans-serif;
+    font-family: "Tahoma", sans-serif;
     margin-top: 1.5rem;
     display: flex;
     justify-content: center;
@@ -368,7 +374,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
   @media (min-width: 1200px) {
     .logo {
-      width: 235px;
+      width: 200px;
     }
   }
   .logo img {
@@ -376,6 +382,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin-right: 6px;
   }
   .logo span {
+    font-family: 'Tahoma', sans-serif;
     font-size: 18px;
     font-weight: 600;
     color: #262626;
@@ -474,6 +481,7 @@ input[type=number]::-webkit-outer-spin-button {
     max-height: 36px;
   }
   .header-nav .nav-profile span {
+    font-family: 'Tahoma', sans-serif;
     font-size: 14px;
     font-weight: 600;
   }
@@ -690,11 +698,11 @@ input[type=number]::-webkit-outer-spin-button {
   .sidebar-nav .nav-content a {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #012970;
     transition: 0.3;
-    padding: 10px 0 10px 20px;
+    padding: 10px 0 10px 13px;
     transition: 0.3s;
   }
   .sidebar-nav .nav-content a i {
@@ -883,7 +891,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
    th{
     font-size: 14px;
-    font-family: "Nunito", sans-serif;
+    font-family: "Tahoma", sans-serif;
      font-weight: 600;
      color: #444444;
   }

@@ -81,6 +81,10 @@ section {
     transition: opacity 0.4s;
 }
 
+#btn_proceed span{
+    color: #fff;
+}
+
 i.lbl_loading, #btn_otp_lbl{
     color: #fff;
 }
@@ -193,4 +197,9 @@ button[disabled]{
         max-height: 95vh;
         max-width: 100vw;
     }
+}
+
+.swal-body {
+   color: #000000;
+   opacity: .64;
 }

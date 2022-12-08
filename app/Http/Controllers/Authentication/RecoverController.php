@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\OTPController;
 use App\Rules\PasswordRule as PasswordRule;
 
+use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class RecoverController extends Controller
     public function recover(Request $request){
 
         $rules = [
-            'email' => ['required', 'exists:accounts,acc_email'],
+            'email' => ['required', 'email', 'exists:accounts,acc_email'],
             'pass' => ['required', 'max:20', new PasswordRule],
             'cpass' => ['required','same:pass'],
             'otp' => ['required', 'numeric']
@@ -37,6 +38,19 @@ class RecoverController extends Controller
         ];
 
         $validator = Validator::make( $request->all(), $rules, $messages);
+    
+        $verify_otp_request = new Request([
+            'email' => $request->email,
+            'otp' => $request->otp,
+        ]);
+
+        $OTPController = new OTPController;
+        $OtpStatus = $OTPController->verify_otp($verify_otp_request);
+        
+        if(!$OtpStatus){
+            $validator->errors()->add('otp', 'The otp is invalid.');
+            throw new ValidationException($validator);
+        }
 
         if($validator->fails()){
             return redirect()
@@ -45,44 +59,26 @@ class RecoverController extends Controller
                 ->withInput($request->all());
         }
         else{
-            $verify_otp_request = new Request([
-                'email' => $request->email,
-                'otp' => $request->otp,
-            ]);
 
-            $OTPController = new OTPController;
+            DB::table('accounts')
+                ->where('acc_email', $request->email)
+                ->update([
+                    'acc_password' => Hash::make($request->pass),
+                    'acc_login_attempts' => '3',
+                    'acc_login_attempts_date' => null,
+                    'acc_blocked_status' => '0'
+                ]);
 
-            if($OTPController->verify_otp($verify_otp_request)){
-
-                DB::table('accounts')
-                    ->where('acc_email', $request->email)
-                    ->update([
-                        'acc_password' => Hash::make($request->pass),
-                        'acc_login_attempts' => '3',
-                        'acc_login_attempts_date' => null,
-                        'acc_blocked_status' => '0'
-                    ]);
-
-                Session::flush();
-                $response = [
-                    'title' => 'Success!',
-                    'message' => 'Account recovered.',
-                    'icon' => 'success',
-                    'status' => 200
-                ];
-                $response = json_encode($response, true);
-                return redirect()->back()->with('status',$response);
-            }
-            else{
-                $response = [
-                    'title' => 'Invalid OTP!',
-                    'message' => 'Please double check the email or get new one.',
-                    'icon' => 'error',
-                    'status' => 400
-                ];
-                $response = json_encode($response, true);
-                return redirect()->back()->withInput($request->all())->with('status',$response);
-            }
+            Session::flush();
+            $response = [
+                'title' => 'Success!',
+                'message' => 'Account recovered.',
+                'icon' => 'success',
+                'status' => 200
+            ];
+            $response = json_encode($response, true);
+            return redirect()->back()->with('status',$response);
+           
         }
     }
 }

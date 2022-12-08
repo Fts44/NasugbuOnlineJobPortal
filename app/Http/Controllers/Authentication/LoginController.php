@@ -52,6 +52,8 @@ class LoginController extends Controller
                         ]);
 
                     // session the credentials
+                    $request->session()->put('user_id', $user->acc_id);
+                    $request->session()->put('user_pic', $user->acc_biz_logo);
                     $request->session()->put('user_email', $user->acc_email);
                     $request->session()->put('user_password', $user->acc_password);
                     $request->session()->put('user_type', $user->acc_classification);
@@ -62,13 +64,13 @@ class LoginController extends Controller
 
                     // redirect to designated page per user type
                     if($user->acc_classification == 'employer'){
-                        $response['redirect_to'] = route('ProfileEmployerView');
+                        $response['redirect_to'] = route('EmployerProfile');
                     }
                     elseif($user->acc_classification == 'admin'){
-                        $response['redirect_to'] = route('ProfileAdminAccounts');
+                        $response['redirect_to'] = route('AdminAccounts');
                     }
                     else{
-                        $response['redirect_to'] = "route('ProfileEmployerView')";
+                        $response['redirect_to'] = route('ApplicantProfile');
                     }
 
                 }

@@ -22,17 +22,19 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
     
+    <!-- texteditor -->
+    <script src="https://cdn.tiny.cloud/1/v5kgbmiwio8xrrxpr4j9g9mufnz4jlk4b021tm4az1j594p0/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
     <!-- sweet alert modal -->
-	<script src="{{ url('js/swal.js') }}"></script>
-    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- main css -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     @stack('css')
 </head>
 <body>
 
-    @include('component.header')
-    @include('component.sidebar_admin')
+    @yield('header')
+    @include('Component.Employer.Sidebar')
 
     @yield('content')
 

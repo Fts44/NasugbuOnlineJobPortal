@@ -14,7 +14,7 @@ class OTPController extends Controller
         $otp = rand(1000,9999);
         session(['otp' => $otp]);
         session(['email' => $email]);
-        session(['expired_at' =>  time()+60*5]);
+        session(['expired_at' =>  time()+60*10]);
 
         return $otp;
     }
@@ -89,7 +89,7 @@ class OTPController extends Controller
         else{
 
             $rules = [
-                'email' => ['required','exists:accounts,acc_email'],     
+                'email' => ['required','email', 'exists:accounts,acc_email'],     
             ];
 
             $messages = [

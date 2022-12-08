@@ -6,7 +6,7 @@
             <span class="d-none d-lg-block ms-1">OJoFi - Nasugbu</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn" id="hamburgerMenu"></i>
-    </div>
+    </div> 
     <!-- End Logo -->
 
     <nav class="header-nav ms-auto">
@@ -170,20 +170,20 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <!-- <i class="bi bi-person-circle" style="font-size: 18px;"></i> -->
-                    <img src="{{ asset('image/profile.jpg') }}" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    <img src="{{ (Session('user_pic')) ? asset('storage/profile_picture/'.Session('user_pic')) : asset('image/profile.jpg') }}" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">Account</span>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>[ Account Name here ]</h6>
-                        <span>[ Account Classification ]</span>
+                        <h6>{{ Session('user_email') }}</h6>
+                        <span>{{ Session('user_type') }}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
@@ -211,10 +211,10 @@
                     </li>
                     <li>
                         <hr class="dropdown-divider">
-                    </li>
+                    </li> -->
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('Logout') }}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
